@@ -23,6 +23,11 @@ namespace Shopping_system
         {
             ContactInformation = contactInfo;
         }
+        public Supplier(int id, string name, ContactInfo contactInfo, List<Product> products)
+            :this(id, name, contactInfo)
+        {
+            Products = products;
+        }
 
 
         private readonly int id;
@@ -110,12 +115,26 @@ namespace Shopping_system
                 contactInformation = value;
             }
         }
+        private List<Product> products;
+        public List<Product> Products
+        {
+            get
+            {
+                return products;
+            }
+            set
+            {
+                products = value;
+            }
+        }
         public override string ToString()
         {
             return $"" +
+                $"Supplier info\n" +
                 $"ID: {id}\n" +
                 $"Name: {supplierName}\n" +
-                $"ContactInfo:\n{contactInformation.ToString()}";
+                $"{contactInformation.ToString()}\n" +
+                $"{products.ToString}";
         }
     }
 }

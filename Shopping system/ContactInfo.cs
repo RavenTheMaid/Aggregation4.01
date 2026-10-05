@@ -45,7 +45,11 @@ namespace Shopping_system
                 {
                     throw new ArgumentException("Mail cannot be empty");
                 }
-                
+                else if (!value.Contains('@'))
+                {
+                    throw new ArgumentException("mail must contain an @");
+                }
+
                 try
                 {
                     chunks = value.Split('@');
@@ -57,7 +61,11 @@ namespace Shopping_system
 
                 if (chunks.Length != 2)
                 {
-                    throw new ArgumentException("mail must contain content before and after @");
+                     throw new ArgumentException("mail must contain content before and after @");
+                }
+                else if (!chunks[1].Contains('.'))
+                {
+                    throw new ArgumentException("mail must contain a period");
                 }
 
                 try
@@ -67,6 +75,11 @@ namespace Shopping_system
                 catch
                 {
                     throw new ArgumentException("Mail must have a TLD");
+                }
+
+                if (periodChunk.Length != 2)
+                {
+                    throw new ArgumentException("mail must contain content before and after the period");
                 }
 
                 if (periodChunk[1] != "com" && periodChunk[1] != "dk")
@@ -101,9 +114,10 @@ namespace Shopping_system
         public override string ToString()
         {
             return $"" +
-                $"Contact ID: {id}\n" +
+                $"Contact info\n" +
+                $"ID: {id}\n" +
                 $"Mail: {mail}\n" +
-                $"Phone number: {phoneNumber}";
+                $"Phone number: {phoneNumber}\n";
         }
 
 
