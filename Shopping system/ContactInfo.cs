@@ -6,28 +6,10 @@ namespace Shopping_system
 {
     internal class ContactInfo
     {
-        public ContactInfo(int id, string mail, string phoneNumber)
+        public ContactInfo(string mail, string phoneNumber)
         {
-            ID = id;
             Mail = mail;
             PhoneNumber = phoneNumber;
-        }
-
-        private int id;
-        public int ID
-        {
-            get
-            {
-                return id;
-            }
-            set
-            {
-                if (value < 10000 || value > 99999)
-                {
-                    throw new ArgumentException("ID must be 5 digit number");
-                }
-                id = value;
-            }
         }
         private string? mail;
         public string? Mail
@@ -67,6 +49,10 @@ namespace Shopping_system
                 {
                     throw new ArgumentException("mail must contain a period");
                 }
+                else if (chunks[1] == ".com" || chunks[1] == ".dk")
+                {
+                    throw new ArgumentException("there must be content between @ and period");
+                }
 
                 try
                 {
@@ -81,8 +67,7 @@ namespace Shopping_system
                 {
                     throw new ArgumentException("mail must contain content before and after the period");
                 }
-
-                if (periodChunk[1] != "com" && periodChunk[1] != "dk")
+                else if (periodChunk[1] != "com" && periodChunk[1] != "dk")
                 {
                     throw new ArgumentException("TLD must be either .com or .dk");
                 }
@@ -114,8 +99,7 @@ namespace Shopping_system
         public override string ToString()
         {
             return $"" +
-                $"Contact info\n" +
-                $"ID: {id}\n" +
+                $"-Contact Info--\n" +
                 $"Mail: {mail}\n" +
                 $"Phone number: {phoneNumber}\n";
         }

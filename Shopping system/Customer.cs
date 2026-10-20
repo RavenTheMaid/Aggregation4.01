@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Shopping_system
 {
-    internal class Supplier
+    internal class Customer
     {
-        public Supplier(int id, string name)
+        public Customer(int id, string name)
         {
             if (id < 10000 || id > 99999)
             {
@@ -16,19 +16,18 @@ namespace Shopping_system
             {
                 this.id = id;
             }
-            SupplierName = name;
+            CustomerName = name;
         }
-        public Supplier(int id, string name, ContactInfo contactInfo)
+        public Customer(int id, string name, ContactInfo contactInfo)
             :this(id, name)
         {
             ContactInformation = contactInfo;
         }
-        public Supplier(int id, string name, ContactInfo contactInfo, List<Product> products)
+        public Customer(int id, string name, ContactInfo contactInfo, Basket basket)
             :this(id, name, contactInfo)
         {
-            Products = products;
+            this.Basket = basket;
         }
-
 
         private readonly int id;
         public int ID
@@ -39,7 +38,7 @@ namespace Shopping_system
             }
         }
         private string supplierName;
-        public string SupplierName
+        public string CustomerName
         {
             get
             {
@@ -115,26 +114,26 @@ namespace Shopping_system
                 contactInformation = value;
             }
         }
-        private List<Product> products;
-        public List<Product> Products
+        private Basket basket;
+        public Basket Basket
         {
             get
             {
-                return products;
+                return basket;
             }
             set
             {
-                products = value;
+                basket = value;
             }
         }
+        
         public override string ToString()
         {
             return $"" +
-                $"Supplier info\n" +
-                $"ID: {id}\n" +
-                $"Name: {supplierName}\n" +
-                $"{contactInformation.ToString()}\n" +
-                $"{products.ToString}";
+                $"--Supplier Info--\n" +
+                $"Name: {supplierName}\n\n" +
+                $"{contactInformation.ToString()}" +
+                $"{Basket.ToString()}";
         }
     }
 }

@@ -6,29 +6,11 @@ namespace Shopping_system
 {
     internal class Product
     {
-        public Product(int id, string name, decimal price)
+        public Product(string name, decimal price)
         {
-            if (id < 10000 || id > 99999)
-            {
-                throw new ArgumentException("ID must be 5 digit number");
-            }
-            else
-            {
-                this.id = id;
-            }
             Name = name;
             Price = price;
         }
-
-        private readonly int id;
-        public int ID
-        {
-            get
-            {
-                return id;
-            }
-        }
-
         private string name;
         public string Name
         {
@@ -70,20 +52,8 @@ namespace Shopping_system
         public override string ToString()
         {
             return $"" +
-                $"Product Info" +
-                $"ID: {id}\n" +
                 $"Name: {name}\n" +
                 $"Price: {price}\n";
         }
-
-
-
-
-
-
-
-
-
-
     }
 }

@@ -7,28 +7,52 @@
             try
             {
                 //i dont know how to stop someone from doin @.com
-                ContactInfo ci = new(51231, "somethingsomething@somethingsomething.com", "12312312");
-                Product product1 = new(123, "theNameOfTheProduct", 500.55m);
-                List<Product> productList = new();
-                productList.Add(product1);
+                ContactInfo ci = new("somethingsomething@kljklj.com", "12312312");
+                Product product1 = new("theNameOfTheProduct", 500.55m);
+                Product product2 = new("theNameOfTheOtherProduct", 121.63m);
+                Basket basket = new();
 
-                Supplier sup = new(32323, "firstname lastname", ci, productList);
+                basket.AddProduct(product1, 10);
+                basket.AddProduct(product2, 1);
+                basket.AddProduct(product1, 3);
+
+                decimal totalPrice = CalculatePrice(basket);
+                decimal totalPriceWithoutTax = CalculatePriceWithoutTax(totalPrice, 0.30m);
+
+                Customer sup = new(32323, "firstname lastname", ci);
                 Console.WriteLine(sup.ToString());
+                Console.WriteLine($"" +
+                    $"Total price: {totalPrice}\n" +
+                    $"Total price without tax: {totalPriceWithoutTax}");
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
-            try
+            //try
+            //{
+            //    ContactInfo ci = new(51231, "somethingsomething@.com", "12312312");
+            //    Supplier sup = new(32323, "firstname lastname", ci);
+            //    Console.WriteLine(sup.ToString());
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine(e.Message);
+            //}
+        }
+        public static decimal CalculatePrice(Dictionary<Product, int> basket)
+        {
+            decimal priceWithTax = 0m;
+            //the tax is most definitely included in the final price of all products
+            foreach (Product product in basket.Keys)
             {
-                ContactInfo ci = new(51231, "somethingsomething@.com", "12312312");
-                Supplier sup = new(32323, "firstname lastname", ci);
-                Console.WriteLine(sup.ToString());
+                priceWithTax += product.Price;
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            return priceWithTax;
+        }
+        public static decimal CalculatePriceWithoutTax(decimal price, decimal tax)
+        {
+            return price / tax;
         }
     }
 }
