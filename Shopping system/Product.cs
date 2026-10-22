@@ -43,7 +43,11 @@ namespace Shopping_system
             {
                 if (value > 10000)
                 {
-                    throw new ArgumentException("you are actually too broke to afford this");
+                    throw new ArgumentException("You are actually too broke to afford this");
+                }
+                else if (value < 0)
+                {
+                    throw new ArgumentException("We do not owe you money, fix that price or else");
                 }
                 price = value;
             }

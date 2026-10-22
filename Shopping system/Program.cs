@@ -1,4 +1,6 @@
-﻿namespace Shopping_system
+﻿using System.Runtime.CompilerServices;
+
+namespace Shopping_system
 {
     internal class Program
     {
@@ -10,49 +12,27 @@
                 ContactInfo ci = new("somethingsomething@kljklj.com", "12312312");
                 Product product1 = new("theNameOfTheProduct", 500.55m);
                 Product product2 = new("theNameOfTheOtherProduct", 121.63m);
-                Basket basket = new();
+                Product product3 = new("theNameOfTheLastProduct", 150.63m);
 
+                Basket basket = new();
                 basket.AddProduct(product1, 10);
                 basket.AddProduct(product2, 1);
                 basket.AddProduct(product1, 3);
+                basket.AddProduct(product3, 20);
 
-                decimal totalPrice = CalculatePrice(basket);
-                decimal totalPriceWithoutTax = CalculatePriceWithoutTax(totalPrice, 0.30m);
+                Customer guy1 = new("firstname lastname", ci, "basic", basket);
+                
+                if(guy1.Subscription == "basic")
 
-                Customer sup = new(32323, "firstname lastname", ci);
-                Console.WriteLine(sup.ToString());
-                Console.WriteLine($"" +
-                    $"Total price: {totalPrice}\n" +
-                    $"Total price without tax: {totalPriceWithoutTax}");
+                Console.WriteLine(guy1.ToString());
+
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
-            //try
-            //{
-            //    ContactInfo ci = new(51231, "somethingsomething@.com", "12312312");
-            //    Supplier sup = new(32323, "firstname lastname", ci);
-            //    Console.WriteLine(sup.ToString());
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine(e.Message);
-            //}
         }
-        public static decimal CalculatePrice(Dictionary<Product, int> basket)
-        {
-            decimal priceWithTax = 0m;
-            //the tax is most definitely included in the final price of all products
-            foreach (Product product in basket.Keys)
-            {
-                priceWithTax += product.Price;
-            }
-            return priceWithTax;
-        }
-        public static decimal CalculatePriceWithoutTax(decimal price, decimal tax)
-        {
-            return price / tax;
-        }
+
+        
     }
 }

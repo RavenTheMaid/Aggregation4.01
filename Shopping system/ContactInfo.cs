@@ -101,7 +101,7 @@ namespace Shopping_system
             return $"" +
                 $"-Contact Info--\n" +
                 $"Mail: {mail}\n" +
-                $"Phone number: {phoneNumber}\n";
+                $"Phone number: {phoneNumber}\n\n";
         }
 
 

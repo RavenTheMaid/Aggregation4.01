@@ -6,37 +6,37 @@ namespace Shopping_system
 {
     internal class Customer
     {
-        public Customer(int id, string name)
+        public Customer(string name, ContactInfo contactInfo, string subscription)
         {
-            if (id < 10000 || id > 99999)
-            {
-                throw new ArgumentException("ID must be 5 digit number");
-            }
-            else
-            {
-                this.id = id;
-            }
             CustomerName = name;
-        }
-        public Customer(int id, string name, ContactInfo contactInfo)
-            :this(id, name)
-        {
             ContactInformation = contactInfo;
+            Subscription = subscription;
+            
         }
-        public Customer(int id, string name, ContactInfo contactInfo, Basket basket)
-            :this(id, name, contactInfo)
+        public Customer(string name, ContactInfo contactInfo, string subscription, Basket basket)
+            :this(name, contactInfo, subscription)
         {
-            this.Basket = basket;
+            Basket = basket;
         }
 
-        private readonly int id;
-        public int ID
+        private string subscription;
+        public string Subscription
         {
             get
             {
-                return id;
+                return subscription;
+            }
+            set
+            {
+                if (value.ToLower() != "basic" && value.ToLower() != "premium" && value.ToLower() != "gold")
+                {
+                    throw new ArgumentException("Customer must be either basic, preium or gold");
+                }
+                subscription = value;
             }
         }
+
+
         private string supplierName;
         public string CustomerName
         {
@@ -129,11 +129,22 @@ namespace Shopping_system
         
         public override string ToString()
         {
-            return $"" +
+            if (Basket == null)
+            {
+                return $"" +
+                $"--Supplier Info--\n" +
+                $"Name: {supplierName}\n\n" +
+                $"{contactInformation.ToString()}";
+            }
+            else
+            {
+                return $"" +
                 $"--Supplier Info--\n" +
                 $"Name: {supplierName}\n\n" +
                 $"{contactInformation.ToString()}" +
                 $"{Basket.ToString()}";
+            }
+            
         }
     }
 }
